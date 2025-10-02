@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Tela de Escolha de Saldo Inicial -->
+        <LinearLayout
+            android:id="@+id/layout_escolha_saldo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#E3F2FD"
+            android:padding="20dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💰 Escolha seu Saldo Inicial"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#1976D2"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selecione quanto dinheiro você quer começar:"
+                android:textSize="16sp"
+                android:textColor="#424242"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <Button
+                    android:id="@+id/botao_saldo_500"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 500"
+                    android:textSize="16sp"
+                    android:background="#4CAF50"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="4dp" />
+
+                <Button
+                    android:id="@+id/botao_saldo_1000"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 1.000"
+                    android:textSize="16sp"
+                    android:background="#4CAF50"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/botao_saldo_2000"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 2.000"
+                    android:textSize="16sp"
+                    android:background="#4CAF50"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="4dp" />
+
+                <Button
+                    android:id="@+id/botao_saldo_5000"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R$ 5.000"
+                    android:textSize="16sp"
+                    android:background="#4CAF50"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Status do Jogo -->
+        <TextView
+            android:id="@+id/status_jogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💰 Saldo: R$ 0,00\n🎯 Aposta: R$ 50,00"
+            android:textSize="16sp"
+            android:textColor="#424242"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="#E8F5E8"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Última Vitória -->
+        <TextView
+            android:id="@+id/ultima_vitoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🏆 Última vitória: Nenhuma ainda"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:padding="12dp"
+            android:background="#FFF3E0"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Caça-níquel Visual -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#2E2E2E"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🎰 CAÇA-NÍQUEL 🎰"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"
+                android:gravity="center"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Rolos do Caça-níquel -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/reel_1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="🍒"
+                    android:textSize="40sp"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp" />
+
+                <TextView
+                    android:id="@+id/reel_2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="🍋"
+                    android:textSize="40sp"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp" />
+
+                <TextView
+                    android:id="@+id/reel_3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="🍊"
+                    android:textSize="40sp"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="🎯 LINHA DE PAGAMENTO 🎯"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFD700"
+                android:gravity="center" />
+
+        </LinearLayout>
+
+        <!-- Controles de Aposta -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎯 Configurar Aposta"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <Button
+                android:id="@+id/botao_diminuir_aposta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="➖"
+                android:textSize="20sp"
+                android:background="#FF5722"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/valor_aposta_texto"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="R$ 50,00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:gravity="center"
+                android:background="#E8F5E8"
+                android:padding="12dp" />
+
+            <Button
+                android:id="@+id/botao_aumentar_aposta"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="➕"
+                android:textSize="20sp"
+                android:background="#4CAF50"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="8dp" />
+
+        </LinearLayout>
+
+        <!-- Timer Automático -->
+        <TextView
+            android:id="@+id/timer_texto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏰ Configure seu saldo inicial para começar!"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#FF9800"
+            android:gravity="center"
+            android:padding="12dp"
+            android:background="#FFF3E0"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botão de Debug -->
+        <Button
+            android:id="@+id/botao_debug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔧 DEBUG: Modo Manual"
+            android:textSize="14sp"
+            android:background="#9C27B0"
+            android:textColor="#FFFFFF"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Botão Jogar Manual (inicialmente invisível) -->
+        <Button
+            android:id="@+id/botao_jogar_manual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎰 JOGAR AGORA"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="#FF9800"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- Resultado do Jogo -->
+        <TextView
+            android:id="@+id/resultado_jogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🎲 Clique em JOGAR para começar!"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="#F5F5F5"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Caça-níquel</string>
+    <string name="aba_caca_niquel">Caça-níquel</string>
+    <string name="aba_chat">Chat</string>
+    <string name="saldo">Saldo: %1$d</string>
+    <string name="aposta_atual">Aposta atual: %1$d</string>
+    <string name="proxima_rodada">Próxima rodada em: %1$ds</string>
+    <string name="ganhou">Ganhou: %1$d!</string>
+    <string name="sem_premio">Sem prêmio nesta rodada.</string>
+    <string name="sem_saldo">Sem saldo suficiente para apostar. Ajuste a aposta.</string>
+    <string name="aposta">Aposta</string>
+    <string name="definir">Definir</string>
+    <string name="redefinir_saldo">Redefinir saldo inicial</string>
+    <string name="saldo_inicial">Saldo inicial</string>
+    <string name="defina_saldo">Defina o valor de saldo inicial.</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="chat_simulacao">Chat (simulação)</string>
+    <string name="mensagem">Mensagem</string>
+    <string name="enviar">Enviar</string>
+    <string name="resposta_oi">Oi! Tudo bem?</string>
+    <string name="resposta_ajuda">Esta é uma simulação de chat. Como posso simular a ajuda?</string>
+    <string name="resposta_padrao">Mensagem recebida (simulação).</string>
+</resources>
