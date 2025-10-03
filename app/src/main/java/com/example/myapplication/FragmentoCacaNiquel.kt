@@ -269,44 +269,20 @@ class FragmentoCacaNiquel : Fragment() {
             val icone3 = iconesLista[indice3]
             
             // Atualizar os rolos visualmente
-            reel1.text = icone1
-            reel2.text = icone2
-            reel3.text = icone3
-            
-            Log.d(TAG, "Resultados: $icone1 - $icone2 - $icone3")
-            
-            val resultadoTexto = "🎰 Resultado: $icone1 - $icone2 - $icone3"
-            
-            if (icone1 == icone2 && icone2 == icone3) {
-                // Vitória!
-                val multiplicador = iconesCaçaNiquel[icone1] ?: 1.0
-                val premio = valorAposta * multiplicador
-                saldoJogador += premio
-                
-                // Atualizar informações de vitória
-                ultimoValorGanho = premio
-                rodadasDesdeUltimaVitoria = 0
-                
-                resultadoJogo.text = "$resultadoTexto\n\n🎉 JACKPOT! 🎉\n💰 Ganhou: R$ ${String.format("%.2f", premio)}\n⭐ Multiplicador: ${multiplicador}x\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
-                Log.d(TAG, "JACKPOT! Premio: $premio, Multiplicador: $multiplicador, Saldo: $saldoJogador")
-            } else {
-                // Perdeu
-                saldoJogador -= valorAposta
-                
-                resultadoJogo.text = "$resultadoTexto\n\n😔 Não foi desta vez!\n💸 Perdeu: R$ ${String.format("%.2f", valorAposta)}\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
-                Log.d(TAG, "Perdeu. Aposta: $valorAposta, Saldo: $saldoJogador")
-                
-                // Verificar se acabou o dinheiro
-                if (saldoJogador <= 0) {
-                    resultadoJogo.text = "$resultadoTexto\n\n😔 Não foi desta vez!\n💸 Perdeu: R$ ${String.format("%.2f", valorAposta)}\n\n💳 Saldo zerado! Configure um novo saldo para continuar!"
-                    Log.d(TAG, "Saldo zerado - oferecendo novo saldo")
-                    mostrarTelaEscolhaSaldo()
-                }
+            animarReel(reel1, icone1){
+
             }
-            
-            atualizarStatusJogo()
-            atualizarValorApostaTexto()
-            atualizarUltimaVitoria()
+
+            animarReel(reel2, icone2){
+
+            }
+
+            animarReel(reel3, icone3){
+                processarResultado (icone1, icone2, icone3)
+            }
+
+            Log.d(TAG, "Resultados: $icone1 - $icone2 - $icone3")
+
             
         } catch (e: Exception) {
             Log.e(TAG, "Erro no caça-níquel: ${e.message}")
@@ -334,7 +310,49 @@ class FragmentoCacaNiquel : Fragment() {
         ultimaVitoria.text = textoUltimaVitoria
         Log.d(TAG, "Última vitória atualizada: $textoUltimaVitoria")
     }
-    
+    private fun processarResultado(icone1: String, icone2: String, icone3: String){
+        val resultadoTexto = "🎰 Resultado: $icone1 - $icone2 - $icone3"
+
+        if (icone1 == icone2 && icone2 == icone3) {
+            val multiplicador = iconesCaçaNiquel[icone1] ?: 1.0
+            val premio = valorAposta * multiplicador
+            saldoJogador += premio
+            ultimoValorGanho = premio
+            rodadasDesdeUltimaVitoria = 0
+
+            resultadoJogo.text = "$resultadoTexto\n\n🎉 JACKPOT! 🎉\n💰 Ganhou: R$ ${String.format("%.2f", premio)}\n⭐ Multiplicador: ${multiplicador}x\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
+        } else {
+            saldoJogador -= valorAposta
+            resultadoJogo.text = "$resultadoTexto\n\n😔 Não foi desta vez!\n💸 Perdeu: R$ ${String.format("%.2f", valorAposta)}\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
+
+            if (saldoJogador <= 0) {
+                resultadoJogo.text = "$resultadoTexto\n\n😔 Não foi desta vez!\n💸 Perdeu: R$ ${String.format("%.2f", valorAposta)}\n\n💳 Saldo zerado! Configure um novo saldo para continuar!"
+                mostrarTelaEscolhaSaldo()
+            }
+        }
+
+        atualizarStatusJogo()
+        atualizarValorApostaTexto()
+        atualizarUltimaVitoria()
+    }
+    private fun animarReel(reel: TextView, resultadoFinal: String, onFinish: () -> Unit){
+        val iconesLista = iconesCaçaNiquel.keys.toList()
+        val duracao = 1500L
+        val intervalo = 100L
+
+        object : CountDownTimer(duracao, intervalo){
+            override fun onTick(millisUntilFinished: Long) {
+                val iconeAleatorio = iconesLista.random()
+                reel.text = iconeAleatorio
+            }
+
+            override fun onFinish() {
+                reel.text = resultadoFinal
+                onFinish()
+            }
+        }.start()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         timerAtivo?.cancel()
