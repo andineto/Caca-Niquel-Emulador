@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // Configurar tabs
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "🎰 Caça-níquel"
+                0 -> "🎰 IFSP BET"
                 1 -> "💬 Chat"
                 else -> "Tab $position"
             }

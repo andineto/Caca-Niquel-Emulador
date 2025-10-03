@@ -102,19 +102,21 @@
         </LinearLayout>
 
         <!-- Status do Jogo -->
+
+        <!-- Última Vitória -->
+
         <TextView
             android:id="@+id/status_jogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="💰 Saldo: R$ 0,00\n🎯 Aposta: R$ 50,00"
-            android:textSize="16sp"
-            android:textColor="#424242"
+            android:layout_marginBottom="16dp"
+            android:background="#E8F5E8"
             android:gravity="center"
             android:padding="16dp"
-            android:background="#E8F5E8"
-            android:layout_marginBottom="16dp" />
+            android:text="💰 Saldo: R$ 0,00\n🎯 Aposta: R$ 50,00"
+            android:textColor="#424242"
+            android:textSize="16sp" />
 
-        <!-- Última Vitória -->
         <TextView
             android:id="@+id/ultima_vitoria"
             android:layout_width="match_parent"
@@ -139,12 +141,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🎰 CAÇA-NÍQUEL 🎰"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#FFD700"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:layout_marginBottom="16dp" />
+                android:text="IFSP BET 🎰"
+                android:textColor="#FFD700"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <!-- Rolos do Caça-níquel -->
             <LinearLayout

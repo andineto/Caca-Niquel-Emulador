@@ -9,13 +9,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🎰 Caça-níquel Completo"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#2E7D32"
+        android:background="#E8F5E8"
         android:gravity="center"
         android:padding="16dp"
-        android:background="#E8F5E8" />
+        android:text="🎰 IFSP BET"
+        android:textColor="#2E7D32"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <!-- TabLayout -->
     <com.google.android.material.tabs.TabLayout
