@@ -328,11 +328,12 @@ class FragmentoCacaNiquel : Fragment() {
             
             // Probabilidade de vitória aumenta com rodadas sem ganhar
             val chanceVitoria = when {
-                rodadasDesdeUltimaVitoria >= 10 -> 0.50
-                rodadasDesdeUltimaVitoria >= 7 -> 0.40
-                rodadasDesdeUltimaVitoria >= 5 -> 0.30
-                rodadasDesdeUltimaVitoria >= 3 -> 0.20
-                else -> 0.10 // Chance base de 20%
+                rodadasDesdeUltimaVitoria >= 15 -> 1.0
+                rodadasDesdeUltimaVitoria >= 10 -> 0.2
+                rodadasDesdeUltimaVitoria >= 7 -> 0.09
+                rodadasDesdeUltimaVitoria >= 5 -> 0.07
+                rodadasDesdeUltimaVitoria >= 3 -> 0.05
+                else -> 0.03 // Chance base de 20%
             }
             val vaiGanhar = Random.nextDouble() < chanceVitoria
             
@@ -349,8 +350,8 @@ class FragmentoCacaNiquel : Fragment() {
                 icone2 = escolherIconeBalanceado()
                 icone3 = escolherIconeBalanceado()
                 
-                // Se os dois primeiros forem iguais, aumentar chance do terceiro ser igual (50%)
-                if (icone1 == icone2 && Random.nextDouble() < 0.5) {
+                // Se os dois primeiros forem iguais, aumentar chance do terceiro ser igual (10%)
+                if (icone1 == icone2 && Random.nextDouble() < 0.1) {
                     icone3 = icone1
                 }
             }
