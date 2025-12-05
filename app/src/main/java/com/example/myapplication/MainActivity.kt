@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity() {
             tab.text = when (position) {
                 0 -> "🎰 IFSP BET"
                 1 -> "💬 Chat"
+                2 -> "💳 Cartão"
+                3 -> "📋 Regras"
                 else -> "Tab $position"
             }
         }.attach()

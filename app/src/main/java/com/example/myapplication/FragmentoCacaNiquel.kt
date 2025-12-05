@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -23,6 +24,9 @@ class FragmentoCacaNiquel : Fragment() {
     private var rodadasDesdeUltimaVitoria = 0
     private var ultimoValorGanho = 0.0
     private var modoDebug = false
+    private var totalGasto = 0.0
+    private val limiteGastoNotificacao = 500.0 // Limite para notificação de gasto
+    private var notificacaoGastoExibida = false
     
     // Ícones do caça-níquel com multiplicadores
     private val iconesCaçaNiquel = mapOf(
@@ -42,6 +46,8 @@ class FragmentoCacaNiquel : Fragment() {
     private lateinit var botaoSaldo1000: Button
     private lateinit var botaoSaldo2000: Button
     private lateinit var botaoSaldo5000: Button
+    private lateinit var inputDepositoPersonalizado: EditText
+    private lateinit var botaoDepositoPersonalizado: Button
     private lateinit var statusJogo: TextView
     private lateinit var ultimaVitoria: TextView
     private lateinit var reel1: TextView
@@ -72,6 +78,7 @@ class FragmentoCacaNiquel : Fragment() {
             inicializarElementosUI(view)
             configurarControlesAposta()
             configurarBotoesSaldo()
+            configurarDepositoPersonalizado()
             configurarBotaoDebug()
             
             // Verificar se precisa configurar saldo inicial
@@ -97,6 +104,8 @@ class FragmentoCacaNiquel : Fragment() {
         botaoSaldo1000 = view.findViewById(R.id.botao_saldo_1000)
         botaoSaldo2000 = view.findViewById(R.id.botao_saldo_2000)
         botaoSaldo5000 = view.findViewById(R.id.botao_saldo_5000)
+        inputDepositoPersonalizado = view.findViewById(R.id.input_deposito_personalizado)
+        botaoDepositoPersonalizado = view.findViewById(R.id.botao_deposito_personalizado)
         statusJogo = view.findViewById(R.id.status_jogo)
         ultimaVitoria = view.findViewById(R.id.ultima_vitoria)
         reel1 = view.findViewById(R.id.reel_1)
@@ -141,6 +150,59 @@ class FragmentoCacaNiquel : Fragment() {
         Log.d(TAG, "Botões de saldo configurados")
     }
     
+    private fun configurarDepositoPersonalizado() {
+        Log.d(TAG, "Configurando depósito personalizado")
+        
+        botaoDepositoPersonalizado.setOnClickListener {
+            val valorTexto = inputDepositoPersonalizado.text.toString().trim()
+            
+            if (valorTexto.isEmpty()) {
+                android.widget.Toast.makeText(
+                    context,
+                    "⚠️ Por favor, digite um valor!",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+            
+            try {
+                val valor = valorTexto.toDouble()
+                
+                if (valor <= 0) {
+                    android.widget.Toast.makeText(
+                        context,
+                        "⚠️ O valor deve ser maior que zero!",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                
+                if (valor > 100000) {
+                    android.widget.Toast.makeText(
+                        context,
+                        "⚠️ O valor máximo é R$ 100.000,00!",
+                        android.widget.Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
+                }
+                
+                configurarSaldoInicial(valor)
+                inputDepositoPersonalizado.text.clear()
+                Log.d(TAG, "Depósito personalizado configurado: R$ $valor")
+                
+            } catch (e: NumberFormatException) {
+                android.widget.Toast.makeText(
+                    context,
+                    "⚠️ Valor inválido! Digite apenas números.",
+                    android.widget.Toast.LENGTH_SHORT
+                ).show()
+                Log.e(TAG, "Erro ao converter valor: ${e.message}")
+            }
+        }
+        
+        Log.d(TAG, "Depósito personalizado configurado")
+    }
+    
     private fun configurarBotaoDebug() {
         Log.d(TAG, "Configurando botão de debug")
         
@@ -178,6 +240,8 @@ class FragmentoCacaNiquel : Fragment() {
         
         saldoJogador = valor
         saldoConfigurado = true
+        totalGasto = 0.0 // Resetar gasto total ao configurar novo saldo
+        notificacaoGastoExibida = false
         
         // Esconder tela de escolha
         layoutEscolhaSaldo.visibility = View.GONE
@@ -254,19 +318,42 @@ class FragmentoCacaNiquel : Fragment() {
                 mostrarTelaEscolhaSaldo()
                 return
             }
-            
-            // Incrementar contador de rodadas
             rodadasDesdeUltimaVitoria++
             
-            // Simular rolagem do caça-níquel com ícones
+            // aumentar chances de vitória baseado em rodadas sem ganhar
             val iconesLista = iconesCaçaNiquel.keys.toList()
-            val indice1 = Random.nextInt(iconesLista.size)
-            val indice2 = Random.nextInt(iconesLista.size)
-            val indice3 = Random.nextInt(iconesLista.size)
+            val icone1: String
+            val icone2: String
+            var icone3: String
             
-            val icone1 = iconesLista[indice1]
-            val icone2 = iconesLista[indice2]
-            val icone3 = iconesLista[indice3]
+            // Probabilidade de vitória aumenta com rodadas sem ganhar
+            val chanceVitoria = when {
+                rodadasDesdeUltimaVitoria >= 10 -> 0.50
+                rodadasDesdeUltimaVitoria >= 7 -> 0.40
+                rodadasDesdeUltimaVitoria >= 5 -> 0.30
+                rodadasDesdeUltimaVitoria >= 3 -> 0.20
+                else -> 0.10 // Chance base de 20%
+            }
+            val vaiGanhar = Random.nextDouble() < chanceVitoria
+            
+            if (vaiGanhar) {
+                // Garantir vitória
+                val iconeVencedor = escolherIconeVencedor()
+                icone1 = iconeVencedor
+                icone2 = iconeVencedor
+                icone3 = iconeVencedor
+                Log.d(TAG, "Vitória garantida após $rodadasDesdeUltimaVitoria rodadas (chance: ${chanceVitoria * 100}%)")
+            } else {
+                // Sistema ponderado: ícones com multiplicadores menores têm mais chance
+                icone1 = escolherIconeBalanceado()
+                icone2 = escolherIconeBalanceado()
+                icone3 = escolherIconeBalanceado()
+                
+                // Se os dois primeiros forem iguais, aumentar chance do terceiro ser igual (50%)
+                if (icone1 == icone2 && Random.nextDouble() < 0.5) {
+                    icone3 = icone1
+                }
+            }
             
             // Atualizar os rolos visualmente
             animarReel(reel1, icone1){
@@ -323,6 +410,11 @@ class FragmentoCacaNiquel : Fragment() {
             resultadoJogo.text = "$resultadoTexto\n\n🎉 JACKPOT! 🎉\n💰 Ganhou: R$ ${String.format("%.2f", premio)}\n⭐ Multiplicador: ${multiplicador}x\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
         } else {
             saldoJogador -= valorAposta
+            totalGasto += valorAposta
+            
+            // Verificar e exibir notificação de gasto
+            verificarNotificacaoGasto()
+            
             resultadoJogo.text = "$resultadoTexto\n\n😔 Não foi desta vez!\n💸 Perdeu: R$ ${String.format("%.2f", valorAposta)}\n💵 Saldo: R$ ${String.format("%.2f", saldoJogador)}"
 
             if (saldoJogador <= 0) {
@@ -334,6 +426,51 @@ class FragmentoCacaNiquel : Fragment() {
         atualizarStatusJogo()
         atualizarValorApostaTexto()
         atualizarUltimaVitoria()
+    }
+    
+    private fun escolherIconeBalanceado(): String {
+        // Sistema ponderado: ícones com multiplicadores menores têm mais chance
+        val pesos = mapOf(
+            "🍒" to 30.0,  // 30% de chance
+            "🍋" to 25.0,  // 25% de chance
+            "🍊" to 20.0,  // 20% de chance
+            "🍇" to 12.0,  // 12% de chance
+            "🍓" to 7.0,   // 7% de chance
+            "🍑" to 4.0,   // 4% de chance
+            "🍎" to 1.5,   // 1.5% de chance
+            "💎" to 0.5    // 0.5% de chance
+        )
+        
+        val total = pesos.values.sum()
+        var random = Random.nextDouble() * total
+        var acumulado = 0.0
+        
+        for ((icone, peso) in pesos) {
+            acumulado += peso
+            if (random <= acumulado) {
+                return icone
+            }
+        }
+        
+        return pesos.keys.first()
+    }
+    
+    private fun escolherIconeVencedor(): String {
+        // Escolher um ícone vencedor, preferindo multiplicadores médios
+        val iconesVencedores = listOf("🍒", "🍋", "🍊", "🍇", "🍓")
+        return iconesVencedores.random()
+    }
+    
+    private fun verificarNotificacaoGasto() {
+        if (totalGasto >= limiteGastoNotificacao && !notificacaoGastoExibida) {
+            notificacaoGastoExibida = true
+            android.widget.Toast.makeText(
+                context,
+                "⚠️ Atenção! Você já gastou R$ ${String.format("%.2f", totalGasto)}. Considere fazer uma pausa!",
+                android.widget.Toast.LENGTH_LONG
+            ).show()
+            Log.d(TAG, "Notificação de gasto exibida: R$ $totalGasto")
+        }
     }
     private fun animarReel(reel: TextView, resultadoFinal: String, onFinish: () -> Unit){
         val iconesLista = iconesCaçaNiquel.keys.toList()

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5f5"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Título -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💳 Emulador de Cartão de Crédito"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1976D2"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ Este é um emulador para fins educacionais.\nNenhum dado real será processado."
+            android:textSize="14sp"
+            android:textColor="#FF9800"
+            android:gravity="center"
+            android:padding="12dp"
+            android:background="#FFF3E0"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Card Visual do Cartão -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:drawable/dialog_holo_light_frame"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CARTÃO DE CRÉDITO"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/input_numero_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Número do Cartão"
+                android:inputType="number"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="#FFFFFF"
+                android:maxLength="19" />
+
+            <EditText
+                android:id="@+id/input_nome_titular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome do Titular"
+                android:inputType="textCapWords"
+                android:textSize="16sp"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="#FFFFFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/input_validade"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Validade (MM/AA)"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:background="#FFFFFF"
+                    android:layout_marginEnd="8dp"
+                    android:maxLength="5" />
+
+                <EditText
+                    android:id="@+id/input_cvv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="CVV"
+                    android:inputType="number"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:background="#FFFFFF"
+                    android:layout_marginStart="8dp"
+                    android:maxLength="3" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Botão Processar -->
+        <Button
+            android:id="@+id/botao_processar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💳 Processar Pagamento"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Resultado -->
+        <TextView
+            android:id="@+id/texto_resultado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Preencha os dados do cartão acima e clique em Processar Pagamento"
+            android:textSize="16sp"
+            android:textColor="#666666"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="#E8F5E8"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>
+

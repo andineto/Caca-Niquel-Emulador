@@ -99,6 +99,47 @@
 
             </LinearLayout>
 
+            <!-- Depósito Personalizado -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ou digite um valor personalizado:"
+                android:textSize="14sp"
+                android:textColor="#424242"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/input_deposito_personalizado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="Digite o valor (ex: 1500)"
+                    android:inputType="numberDecimal"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:background="#FFFFFF"
+                    android:layout_marginEnd="8dp" />
+
+                <Button
+                    android:id="@+id/botao_deposito_personalizado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Depositar"
+                    android:textSize="14sp"
+                    android:background="#2196F3"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <!-- Status do Jogo -->
