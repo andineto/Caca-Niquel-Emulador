@@ -2,11 +2,16 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
+
+    private var tentouSairUmaVez = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +24,9 @@ class MainActivity : AppCompatActivity() {
             
             // Configurar ViewPager2 e TabLayout
             configurarTabs()
-            
+
+            configurarLogicaDeSaida()
+
             Log.d(TAG, "=== ONCREATE CONCLUÍDO COM SUCESSO ===")
             
         } catch (e: Exception) {
@@ -53,5 +60,45 @@ class MainActivity : AppCompatActivity() {
         }.attach()
         
         Log.d(TAG, "Tabs configuradas com sucesso")
+    }
+
+    private fun configurarLogicaDeSaida(){
+        Log.d(TAG, "Configurando logica de-saida")
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(!tentouSairUmaVez){
+                    Log.d(TAG, "Primeira tentaiva de sair: Mostrando Imagem")
+                    mostrarImagemDeSaida()
+                    tentouSairUmaVez = true;
+                }else{
+                    Log.d(TAG, "Segunda tentativa de sair: Fechando app")
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private fun mostrarImagemDeSaida(){
+        val imageDiamente = ImageView(this)
+        imageDiamente.setImageResource(R.drawable.diamante)
+        imageDiamente.adjustViewBounds = true;
+
+        AlertDialog.Builder(this)
+            .setTitle("Já vai?")
+            .setMessage("Vai abonadonar a chance de ficar milionário?")
+            .setView(imageDiamente)
+            .setPositiveButton("Ficar"){
+                dialog, _ ->
+                dialog.dismiss()
+            }
+            .setNegativeButton("Sair"){
+                _, _ ->
+                finish()
+            }
+            .setCancelable(false)
+            .show()
     }
 }
